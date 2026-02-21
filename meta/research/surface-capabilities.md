@@ -1,3 +1,10 @@
+---
+status: unread
+criticality: review
+date: 2026-02-21
+summary: Capability matrix across VS Code, Desktop, and Terminal surfaces
+---
+
 # R&D: Surface Capabilities Matrix
 
 ## Surfaces where Claude Code runs

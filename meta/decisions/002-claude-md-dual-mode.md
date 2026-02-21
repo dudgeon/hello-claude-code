@@ -1,6 +1,13 @@
+---
+status: unread
+criticality: fyi
+date: 2026-02-21
+summary: Dual-mode strategy for user vs builder context (superseded by ADR 003)
+---
+
 # ADR 002 — CLAUDE.md Dual-Mode Strategy
 
-**Status:** Accepted
+**Status:** Superseded by ADR 003
 **Date:** 2026-02-21
 
 ## Context

@@ -1,3 +1,10 @@
+---
+status: unread
+criticality: review
+date: 2026-02-21
+summary: User personas, "done" definition, journey structure options, open questions
+---
+
 # R&D: User Journey Design
 
 ## Who is the user?

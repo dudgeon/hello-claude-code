@@ -1,3 +1,10 @@
+---
+status: unread
+criticality: review
+date: 2026-02-21
+summary: How to deliver rich HTML content across Claude Code surfaces
+---
+
 # R&D: Rich Visual Content via Web Preview
 
 ## The goal

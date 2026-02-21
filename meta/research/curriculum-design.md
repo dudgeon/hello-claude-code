@@ -1,3 +1,10 @@
+---
+status: unread
+criticality: critical
+date: 2026-02-21
+summary: 22 lessons across 7 modules, lesson state via curriculum.md, file structure, bootstrap skills
+---
+
 # R&D: Curriculum Design
 
 ## Design constraints

@@ -1,3 +1,10 @@
+---
+status: unread
+criticality: fyi
+date: 2026-02-21
+summary: Established /meta for builder content, root for user-facing content
+---
+
 # ADR 001 — Repo Structure
 
 **Status:** Accepted

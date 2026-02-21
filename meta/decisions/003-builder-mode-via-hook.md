@@ -1,3 +1,10 @@
+---
+status: unread
+criticality: fyi
+date: 2026-02-21
+summary: Replaced CLAUDE.local.md with SessionStart hook + .builder-mode flag
+---
+
 # ADR 003 — Builder Mode via SessionStart Hook
 
 **Status:** Accepted (supersedes ADR 002)
