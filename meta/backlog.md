@@ -16,9 +16,13 @@ Living list of work to do. Roughly priority-ordered within each section.
 - [ ] Set up CLAUDE.md with project-level instructions for Claude Code sessions
 - [ ] Design the skill/command layer — what `/slash` commands does the user get?
 - [ ] Figure out how to trigger/open web content from Claude Code across surfaces
+- [ ] Design interactive lessons where learners build, apply, and execute skills — both manual invocation and interactive/guided flows
+- [ ] Define a minimalist bootstrap skill set to ship with — lesson navigation, skill authoring, CLAUDE.md evaluation, and lesson content delivery
 
 ## Later
 
+- [ ] Fork-level style customization — build a skill (e.g. `/style`) that ingests a style guide and re-styles lesson content, so org forks can brand the experience without rewriting lessons
+- [ ] IDE comfort pass — explore what we can do in-repo to make markdown-heavy workflows feel less alien to non-developer users (e.g. recommended extensions, workspace settings for markdown preview/styling, editor defaults)
 - [ ] Test on Claude Desktop app
 - [ ] Test on VS Code extension
 - [ ] Test on terminal-only
