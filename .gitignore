@@ -1,2 +1,3 @@
-# Builder-mode local override (never ship to users)
-CLAUDE.local.md
+# Builder-mode toggle (zero-content flag file — the actual builder
+# instructions are committed in .claude/builder-context.md)
+.builder-mode

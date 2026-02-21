@@ -18,14 +18,17 @@ The root `CLAUDE.md` is the user-facing product (the greeter/instructor).
 To work as a builder without triggering the user experience:
 
 ```sh
-cp meta/CLAUDE.local.md.template CLAUDE.local.md
+touch .builder-mode
 ```
 
-`CLAUDE.local.md` is gitignored — it overrides the user persona so Claude
-treats you as a developer. See [ADR 002](decisions/002-claude-md-dual-mode.md)
-for the full rationale.
+That's it. A SessionStart hook detects the flag file and injects the builder
+context from `.claude/builder-context.md`. All builder instructions are
+committed to the repo — nothing is hidden from git. The only gitignored
+artifact is the zero-content `.builder-mode` flag itself.
 
-**To test the user experience**, simply rename or delete your `CLAUDE.local.md`.
+**To test the user experience:** `rm .builder-mode` and start a new session.
+
+See [ADR 003](decisions/003-builder-mode-via-hook.md) for the full rationale.
 
 ## Conventions
 
