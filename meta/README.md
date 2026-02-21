@@ -12,6 +12,21 @@ It is not shipped as part of the user-facing experience (though the repo itself 
 | `design/` | User journey maps, wireframes, interaction designs |
 | `backlog.md` | Living list of work items and priorities |
 
+## Builder mode setup
+
+The root `CLAUDE.md` is the user-facing product (the greeter/instructor).
+To work as a builder without triggering the user experience:
+
+```sh
+cp meta/CLAUDE.local.md.template CLAUDE.local.md
+```
+
+`CLAUDE.local.md` is gitignored — it overrides the user persona so Claude
+treats you as a developer. See [ADR 002](decisions/002-claude-md-dual-mode.md)
+for the full rationale.
+
+**To test the user experience**, simply rename or delete your `CLAUDE.local.md`.
+
 ## Conventions
 
 - **ADRs** are numbered sequentially (`001-title.md`, `002-title.md`).
