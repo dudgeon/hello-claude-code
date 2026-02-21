@@ -12,10 +12,14 @@ Updated by Claude via `/update-reading-list`.
 
 ### Critical
 
+- [ ] **[Runtime Lesson Composition](research/runtime-lesson-composition.md)** —
+  Lesson kits, parameterized visual templates, runtime composition vs static
+  content. *Read this one first — it reframes how the curriculum gets delivered
+  and may change what you think about the curriculum design doc.*
 - [ ] **[Curriculum Design](research/curriculum-design.md)** — 22 lessons
   across 7 modules, lesson state via curriculum.md, file structure, bootstrap
-  skills. *This is the big one — module structure, lesson candidates, and state
-  tracking all need your input before we build content.*
+  skills. *Module structure, lesson candidates, and state tracking all need
+  your input before we build content.*
 
 ### Review
 
