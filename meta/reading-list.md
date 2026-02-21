@@ -19,6 +19,9 @@ Updated by Claude via `/update-reading-list`.
 
 ### Review
 
+- [ ] **[Async Review Workflow Spec](specs/async-review-workflow.md)** — Mini
+  spec for the frontmatter + reading list + CriticMarkup feedback pattern.
+  *Short read; defines the workflow you'll use for everything else.*
 - [ ] **[User Journey Design](research/user-journey-design.md)** — User
   personas, "done" definition, journey structure options. *Curriculum design
   builds on this; worth re-reading with the curriculum proposal in mind.*
