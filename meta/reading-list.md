@@ -12,9 +12,13 @@ Updated by Claude via `/update-reading-list`.
 
 ### Critical
 
+- [ ] **[Interaction Model](research/interaction-model.md)** — How visuals
+  render, how user actions flow back to Claude, and what the playground plugin
+  teaches us. *Read this first — it establishes the fundamental constraint
+  that shapes everything about how lessons deliver visual content.*
 - [ ] **[Runtime Lesson Composition](research/runtime-lesson-composition.md)** —
   Lesson kits, parameterized visual templates, runtime composition vs static
-  content. *Read this one first — it reframes how the curriculum gets delivered
+  content. *Read this one next — it reframes how the curriculum gets delivered
   and may change what you think about the curriculum design doc.*
 - [ ] **[Curriculum Design](research/curriculum-design.md)** — 22 lessons
   across 7 modules, lesson state via curriculum.md, file structure, bootstrap
