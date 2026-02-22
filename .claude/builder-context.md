@@ -71,6 +71,16 @@ When you encounter CriticMarkup in any file, use the `/review-feedback` skill
 to process it: apply corrections, extract takeaways, and identify required
 changes to other files, the roadmap, or conventions.
 
+## Platform target (ADR 004)
+
+- **Primary:** Claude Desktop app — embedded browser preview, screenshots,
+  DOM inspection. Design the richest lesson experience here first.
+- **Backup:** CLI + projection — HTML is a write-only visual surface; all
+  interaction stays in the chat. Every visual needs a text fallback.
+- **VS Code extension ≈ CLI** — same tools, same constraints.
+- **When a feature only works on one surface:** Flag it so the builder can
+  decide how to handle (fallback, skip for CLI, or alternative approach).
+
 ## Current state
 
 Early infrastructure phase. User-facing learning content hasn't been built yet.

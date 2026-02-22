@@ -12,14 +12,17 @@ Updated by Claude via `/update-reading-list`.
 
 ### Critical
 
+- [ ] **[ADR 004 — Platform Target](decisions/004-platform-target.md)** —
+  Desktop app as primary target, CLI + projection as fallback. *Read this
+  first — it's the decision that frames everything below. Short read.*
 - [ ] **[Interaction Model](research/interaction-model.md)** — How visuals
   render, how user actions flow back to Claude, and what the playground plugin
-  teaches us. *Read this first — it establishes the fundamental constraint
-  that shapes everything about how lessons deliver visual content.*
+  teaches us. *The research behind ADR 004. Detailed; open questions partially
+  resolved by the ADR.*
 - [ ] **[Runtime Lesson Composition](research/runtime-lesson-composition.md)** —
   Lesson kits, parameterized visual templates, runtime composition vs static
-  content. *Read this one next — it reframes how the curriculum gets delivered
-  and may change what you think about the curriculum design doc.*
+  content. *Read after interaction model — it reframes how the curriculum gets
+  delivered and may change what you think about the curriculum design doc.*
 - [ ] **[Curriculum Design](research/curriculum-design.md)** — 22 lessons
   across 7 modules, lesson state via curriculum.md, file structure, bootstrap
   skills. *Module structure, lesson candidates, and state tracking all need
@@ -34,10 +37,11 @@ Updated by Claude via `/update-reading-list`.
   personas, "done" definition, journey structure options. *Curriculum design
   builds on this; worth re-reading with the curriculum proposal in mind.*
 - [ ] **[Surface Capabilities](research/surface-capabilities.md)** — Capability
-  matrix across VS Code, Desktop, and Terminal. *Still has open cells; needs
-  empirical testing.*
+  matrix across VS Code, Desktop, and Terminal. *Some questions resolved by
+  ADR 004; remaining cells still need empirical testing.*
 - [ ] **[Web Preview Rendering](research/web-preview-rendering.md)** — Rich
-  HTML content delivery across surfaces. *Blocked on surface capability testing.*
+  HTML content delivery across surfaces. *Partially superseded by ADR 004
+  and interaction model research; still has relevant implementation details.*
 
 ### FYI
 
