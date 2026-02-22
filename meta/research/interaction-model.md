@@ -54,18 +54,54 @@ solves a version of this problem. Its architecture:
 - **Browser dependency** — `open file.html` works on macOS/Linux desktops
   but may not work in all Claude Code environments (web sandbox, containers).
 
-## The fundamental constraint
+## Surface capabilities (empirical findings)
+
+Research into the actual rendering capabilities of each surface reveals
+significant differences:
+
+| Capability | CLI (Terminal) | Desktop App | Web (claude.ai/code) |
+|---|---|---|---|
+| Syntax-highlighted code | Yes | Yes | Yes |
+| Rendered markdown | **Partial/buggy** — raw `**bold**`, broken tables | Yes | Yes |
+| Inline images | No | Via attachments | Via attachments |
+| Diff view | Text-based (red/green) | Visual, file-by-file | Visual |
+| HTML preview | **No** | **Yes — embedded browser** | Sandboxed only |
+| Auto-open browser | No (needs MCP/extension) | **Yes (built-in)** | N/A |
+| Dev server preview | Run only; user opens browser | **Auto-start + embedded preview** | Sandboxed |
+
+**The Desktop app is the standout surface.** It has a built-in embedded
+browser that can:
+- Auto-detect and start dev servers
+- Open an embedded browser showing the running app
+- Take screenshots, inspect the DOM, click elements, fill forms
+- Auto-verify changes after edits
+- Store server config in `.claude/launch.json`
+
+**The CLI is the weakest for visuals.** Markdown rendering is partial —
+there are known bugs with tables (raw pipe characters), bold text, and
+non-ASCII characters. There's no inline HTML preview at all.
+
+**The web version** runs in a sandboxed cloud environment with filesystem
+and network isolation. Dev servers can run inside the sandbox but aren't
+easily accessible from the user's browser.
+
+### The fundamental constraint
 
 **There is no programmatic channel from a rendered HTML page back to Claude
-Code.** The HTML runs in a browser (or VS Code webview). Claude Code runs in
-a terminal/agent process. They cannot talk to each other.
+Code.** The HTML runs in a browser (or VS Code webview or Desktop embedded
+browser). Claude Code runs in a terminal/agent process. They cannot talk to
+each other directly.
 
-This means:
+One exception: The Desktop app can take screenshots of the embedded preview
+and inspect its DOM — so Claude can *observe* what the user sees. But this
+is Claude observing the page, not the page sending events to Claude. The
+user still can't click something in the HTML and have Claude react to it.
 
 | Direction | Works? | How |
 |---|---|---|
-| Claude → Visual | Yes | Write HTML file, tell user to open it (or auto-open) |
+| Claude → Visual | Yes | Write HTML file, open it (auto in Desktop, manual elsewhere) |
 | Visual → Claude | **No** | User must manually relay information back to chat |
+| Claude → Visual (observe) | **Desktop only** | Screenshots + DOM inspection of embedded preview |
 | Claude → User (text) | Yes | Chat output, markdown |
 | User → Claude (text) | Yes | Chat input |
 
@@ -106,15 +142,24 @@ not the standard interaction model.
 
 ### The rendering question by surface
 
-| Surface | How to open visuals | Automation |
-|---|---|---|
-| **VS Code** | `code --preview file.html` or VS Code webview | Claude can invoke; user approves tool use |
-| **Terminal (desktop)** | `open` / `xdg-open` launches browser | Claude can invoke; user approves |
-| **Terminal (remote/SSH)** | No browser available | Fallback to markdown-only |
-| **claude.ai/code (web)** | No browser access from sandbox | Fallback to markdown-only |
+| Surface | How to open visuals | Automation | Markdown quality |
+|---|---|---|---|
+| **Desktop app** | Embedded browser preview | **Fully automatic** — best experience | Good |
+| **VS Code** | VS Code webview or browser | Claude can invoke; user approves | Good |
+| **Terminal (desktop)** | `open` / `xdg-open` launches browser | Claude can invoke; user approves | **Poor** — raw syntax, broken tables |
+| **Terminal (remote/SSH)** | No browser available | Fallback to text-only | Poor |
+| **claude.ai/code (web)** | Sandboxed; no browser access | Fallback to text-only | Good (web renderer) |
 
-**Implication**: Every visual must have a **text fallback**. The visual
-enriches the experience but the lesson must work without it.
+**Implications**:
+- Every visual must have a **text fallback**. The visual enriches the
+  experience but the lesson must work without it.
+- The Desktop app is the **ideal surface** for this project — its embedded
+  preview makes visuals seamless.
+- CLI users get a **degraded but functional** experience. We should be
+  honest about this in onboarding: "This works best in the Desktop app or
+  VS Code. Terminal works but you'll miss the visual richness."
+- CLI markdown rendering bugs mean even our *text* fallbacks need to be
+  defensive — avoid complex tables, prefer lists and headers.
 
 ### Proposed interaction patterns
 
@@ -174,22 +219,34 @@ temp location, and opens it.
 
 ## Open questions
 
-1. **VS Code preview pane** — Can Claude Code actually invoke
-   `code --preview`? Need to test empirically.
-2. **Auto-open policy** — Should Claude auto-open visuals, or ask first?
-   Beginners might be startled by unexpected browser windows.
-3. **Template vs. generation** — For simpler visuals, is a parameterized
+1. **Primary surface decision** — Should we declare Desktop app as the
+   recommended surface and design for it first? The embedded preview
+   makes a qualitatively different experience possible.
+2. **Desktop `.claude/launch.json`** — Can we pre-configure this so the
+   embedded preview "just works" when the user clones the repo?
+3. **Auto-open policy** — Should Claude auto-open visuals, or ask first?
+   Desktop preview feels natural; a surprise browser window from CLI
+   might be jarring.
+4. **Template vs. generation** — For simpler visuals, is a parameterized
    template better than Claude generating HTML from scratch? (Probably yes
    for consistency; the playground plugin validates this pattern.)
-4. **Shared style kit** — Should we ship a CSS file/design system for
+5. **Shared style kit** — Should we ship a CSS file/design system for
    visual consistency, or inline everything per the playground pattern?
-5. **Fallback fidelity** — How much effort to spend on markdown fallbacks?
-   Bare-minimum text, or genuinely useful ASCII layouts?
+6. **Fallback fidelity** — How much effort to spend on text fallbacks?
+   CLI markdown is buggy, so even "markdown fallback" has limits. Might
+   need to be plain-text-safe (lists, headers, no tables).
+7. **Desktop screenshot loop** — Desktop can screenshot the embedded
+   preview. Could Claude use this for a quasi-feedback loop (render
+   visual → screenshot → verify it looks right → iterate)? Useful for
+   generated HTML quality assurance.
 
 ## Recommendation
 
 Adopt the **"visuals are projections" principle**: rich HTML for display,
-chat for interaction. Build parameterized templates for core lesson
+chat for interaction. **Target Desktop app as primary surface** — its
+embedded preview makes visuals seamless and even enables a screenshot-
+based quality loop. Build parameterized templates for core lesson
 moments. Accept the copy-paste pattern only for rare interactive
-explorations. Always provide markdown fallbacks. Test VS Code preview
-automation as the first empirical spike.
+explorations. Provide text fallbacks that work in degraded CLI rendering
+(avoid complex tables). Test Desktop `.claude/launch.json` pre-
+configuration as the first empirical spike.
